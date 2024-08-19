@@ -1,6 +1,7 @@
 # ubuntu-netutils-pod
 Dockerfile and Pod definition for network utility tools on Ubuntu, useful for network and throughput testing on your Kubernetes cluster
-Packages:
+
+Packages included:
 - net-tools
 - tcpdump
 - vim
