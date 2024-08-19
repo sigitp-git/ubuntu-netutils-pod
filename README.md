@@ -17,10 +17,74 @@ Packages:
 - git
 - vpp
 
-### building ubuntu-netutils container image and upload it to AWS ECR, change 01234567890 to your AWS account ID
+### building ubuntu-netutils container image for both amd64 and arm64, and upload it to AWS ECR, change 01234567890 to your AWS account ID
 ```
 aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 01234567890.dkr.ecr.us-east-1.amazonaws.com
 sudo docker buildx build --platform linux/amd64,linux/arm64 -t 01234567890.dkr.ecr.us-east-1.amazonaws.com/sigitp-ecr:ubuntu-netutils --push .
+```
+
+example build output:
+```
+Admin:~/environment/ubuntu-netutils-dockerfile $ sudo docker buildx build --platform linux/amd64,linux/arm64 -t 01234567890.dkr.ecr.us-east-1.amazonaws.com/sigitp-ecr:ubuntu-netutils --push .
+[+] Building 324.4s (22/22) FINISHED                                                                                                                                           docker:default
+ => [internal] load build definition from Dockerfile                                                                                                                                     0.0s
+ => => transferring dockerfile: 397B                                                                                                                                                     0.0s
+ => [linux/arm64 internal] load metadata for docker.io/library/ubuntu:jammy                                                                                                              0.7s
+ => [linux/amd64 internal] load metadata for docker.io/library/ubuntu:jammy                                                                                                              0.7s
+ => [internal] load .dockerignore                                                                                                                                                        0.0s
+ => => transferring context: 2B                                                                                                                                                          0.0s
+ => [linux/amd64 1/7] FROM docker.io/library/ubuntu:jammy@sha256:adbb90115a21969d2fe6fa7f9af4253e16d45f8d4c1e930182610c4731962658                                                        2.5s
+ => => resolve docker.io/library/ubuntu:jammy@sha256:adbb90115a21969d2fe6fa7f9af4253e16d45f8d4c1e930182610c4731962658                                                                    0.0s
+ => => sha256:857cc8cb19c0f475256df4b7709003b77f101215ebf3693118e61aac6a5ea4ff 29.54MB / 29.54MB                                                                                         0.6s
+ => => extracting sha256:857cc8cb19c0f475256df4b7709003b77f101215ebf3693118e61aac6a5ea4ff                                                                                                1.8s
+ => [internal] load build context                                                                                                                                                        0.0s
+ => => transferring context: 397B                                                                                                                                                        0.0s
+ => [linux/arm64 1/7] FROM docker.io/library/ubuntu:jammy@sha256:adbb90115a21969d2fe6fa7f9af4253e16d45f8d4c1e930182610c4731962658                                                        2.4s
+ => => resolve docker.io/library/ubuntu:jammy@sha256:adbb90115a21969d2fe6fa7f9af4253e16d45f8d4c1e930182610c4731962658                                                                    0.0s
+ => => sha256:e63ce922f0229bde5aea9f366c46883dcd23747e7d2c541f16665f199dbf98b8 27.36MB / 27.36MB                                                                                         0.7s
+ => => extracting sha256:e63ce922f0229bde5aea9f366c46883dcd23747e7d2c541f16665f199dbf98b8                                                                                                1.6s
+ => [linux/arm64 2/7] RUN apt-get update && apt-get install -y net-tools tcpdump vim iperf3 iftop ethtool netcat iputils-ping wget curl iproute2 dnsutils telnet git                   172.0s
+ => [linux/amd64 2/7] RUN apt-get update && apt-get install -y net-tools tcpdump vim iperf3 iftop ethtool netcat iputils-ping wget curl iproute2 dnsutils telnet git                    15.6s
+ => [linux/amd64 3/7] RUN curl -s https://packagecloud.io/install/repositories/fdio/release/script.deb.sh | bash                                                                        15.8s 
+ => [linux/amd64 4/7] RUN apt-get update                                                                                                                                                 2.0s 
+ => [linux/amd64 5/7] RUN apt-get install -y vpp vpp-plugin-core vpp-plugin-dpdk                                                                                                         3.9s 
+ => [linux/amd64 6/7] WORKDIR /src                                                                                                                                                       0.0s 
+ => [linux/amd64 7/7] COPY . .                                                                                                                                                           0.0s 
+ => [linux/arm64 3/7] RUN curl -s https://packagecloud.io/install/repositories/fdio/release/script.deb.sh | bash                                                                        75.7s 
+ => [linux/arm64 4/7] RUN apt-get update                                                                                                                                                18.1s 
+ => [linux/arm64 5/7] RUN apt-get install -y vpp vpp-plugin-core vpp-plugin-dpdk                                                                                                        20.8s 
+ => [linux/arm64 6/7] WORKDIR /src                                                                                                                                                       0.1s 
+ => [linux/arm64 7/7] COPY . .                                                                                                                                                           0.0s 
+ => exporting to image                                                                                                                                                                  33.5s 
+ => => exporting layers                                                                                                                                                                 21.9s 
+ => => exporting manifest sha256:0eb24efda6630436ebb85dff44ffa1bbf0c1bb0bd631849bf69f85f81c86b320                                                                                        0.0s 
+ => => exporting config sha256:15b0d17810626c7e2a701e06b2c80ae78f1243b22fe6cdc0c6f0aa4a393a3d2f                                                                                          0.0s 
+ => => exporting attestation manifest sha256:e38dce54ae2e6c951eed8690781035b8a671642011965a8ace93da44a6471b9a                                                                            0.0s
+ => => exporting manifest sha256:f0a56a63552e2e345d2c0832dfc10abd3b49acd78c3a7d19da9ebf7844c6e917                                                                                        0.0s
+ => => exporting config sha256:682a3e48b42ca17db2af18d2a32026de3eda0590956d83997954a74163522f0c                                                                                          0.0s
+ => => exporting attestation manifest sha256:cdc96e5c1e3e153fe57fb21426f5d8155d72d900ad4ea4c34a0e70c94fb401a0                                                                            0.0s
+ => => exporting manifest list sha256:1273d7525ff77623e110aeaf82c810edb5f39babb683ebbad6ec5aa3696c95a7                                                                                   0.0s
+ => => naming to 291615555612.dkr.ecr.us-east-1.amazonaws.com/sigitp-ecr:ubuntu-netutils                                                                                                 0.0s
+ => => unpacking to 291615555612.dkr.ecr.us-east-1.amazonaws.com/sigitp-ecr:ubuntu-netutils                                                                                              3.6s
+ => => pushing layers                                                                                                                                                                    6.3s
+ => => pushing manifest for 291615555612.dkr.ecr.us-east-1.amazonaws.com/sigitp-ecr:ubuntu-netutils@sha256:1273d7525ff77623e110aeaf82c810edb5f39babb683ebbad6ec5aa3696c95a7              1.6s
+ => [auth] sharing credentials for 291615555612.dkr.ecr.us-east-1.amazonaws.com                                                                                                          0.0s
+ => pushing 291615555612.dkr.ecr.us-east-1.amazonaws.com/sigitp-ecr:ubuntu-netutils with docker                                                                                          0.7s
+ => => pushing layer 54146c695a3b                                                                                                                                                        0.6s
+ => => pushing layer 3cd304903ebb                                                                                                                                                        0.6s
+ => => pushing layer 4f4fb700ef54                                                                                                                                                        0.6s
+ => => pushing layer e63ce922f022                                                                                                                                                        0.6s
+ => => pushing layer 328d38a532e6                                                                                                                                                        0.6s
+ => => pushing layer e35da54da1be                                                                                                                                                        0.6s
+ => => pushing layer 5b9ea22bd7d9                                                                                                                                                        0.6s
+ => => pushing layer 857cc8cb19c0                                                                                                                                                        0.6s
+ => => pushing layer f043f0a560f6                                                                                                                                                        0.6s
+ => => pushing layer c272e452a53c                                                                                                                                                        0.6s
+ => => pushing layer cbe28a07e910                                                                                                                                                        0.6s
+ => => pushing layer e7b3de6f9e3b                                                                                                                                                        0.6s
+ => => pushing layer 7759491d8589                                                                                                                                                        0.6s
+ => => pushing layer 2a212c544622                                                                                                                                                        0.6s
+Admin:~/environment/ubuntu-netutils-dockerfile $ 
 ```
 
 ### iperf3: create server and client pods
