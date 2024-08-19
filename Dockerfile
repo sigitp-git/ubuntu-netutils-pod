@@ -2,8 +2,11 @@ FROM ubuntu:jammy
  RUN apt-get update && \
      apt-get install -y net-tools \
      tcpdump \
-     vim \
-     iperf3 \
+     vim
+ RUN apt-get clean && \
+     rm -rf /var/lib/apt/lists/*
+ RUN apt-get update && \
+     apt-get install -y iperf3 \
      iftop \
      ethtool
  RUN apt-get clean && \
@@ -12,8 +15,11 @@ FROM ubuntu:jammy
      apt-get install -y netcat \
      iputils-ping \
      wget \
-     curl \
-     iproute2 \
+     curl
+ RUN apt-get clean && \
+     rm -rf /var/lib/apt/lists/*
+ RUN apt-get update && \
+     apt-get install -y iproute2 \
      dnsutils \
      telnet \
      git
