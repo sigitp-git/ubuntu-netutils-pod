@@ -90,8 +90,9 @@ Admin:~/environment/ubuntu-netutils-dockerfile $
 ### example pod definition
 https://github.com/sigitp-git/ubuntu-netutils-pod/blob/main/ubuntu-netutils-pod.yaml
 
-note: in this example, ens5 is eth0 and part of AWS VPC CNI, while ens6 uses ipvlan CNI
+note: in this example, ens5 is eth0 and part of AWS VPC CNI, while ens6 uses ipvlan CNI. Multus is also enabled in the cluster.
 ipvlan CNI Network Attachment Definition file is available here: 
+https://github.com/sigitp-git/ubuntu-netutils-pod/blob/main/ubuntu-netutils-pod.yaml
 
 ```
 Admin:~/environment $ kubectl describe po ubuntu-netutils
