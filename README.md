@@ -64,12 +64,12 @@ Admin:~/environment/ubuntu-netutils-dockerfile $ sudo docker buildx build --plat
  => => exporting config sha256:682a3e48b42ca17db2af18d2a32026de3eda0590956d83997954a74163522f0c                                                                                          0.0s
  => => exporting attestation manifest sha256:cdc96e5c1e3e153fe57fb21426f5d8155d72d900ad4ea4c34a0e70c94fb401a0                                                                            0.0s
  => => exporting manifest list sha256:1273d7525ff77623e110aeaf82c810edb5f39babb683ebbad6ec5aa3696c95a7                                                                                   0.0s
- => => naming to 291615555612.dkr.ecr.us-east-1.amazonaws.com/sigitp-ecr:ubuntu-netutils                                                                                                 0.0s
- => => unpacking to 291615555612.dkr.ecr.us-east-1.amazonaws.com/sigitp-ecr:ubuntu-netutils                                                                                              3.6s
+ => => naming to 01234567890.dkr.ecr.us-east-1.amazonaws.com/sigitp-ecr:ubuntu-netutils                                                                                                 0.0s
+ => => unpacking to 01234567890.dkr.ecr.us-east-1.amazonaws.com/sigitp-ecr:ubuntu-netutils                                                                                              3.6s
  => => pushing layers                                                                                                                                                                    6.3s
- => => pushing manifest for 291615555612.dkr.ecr.us-east-1.amazonaws.com/sigitp-ecr:ubuntu-netutils@sha256:1273d7525ff77623e110aeaf82c810edb5f39babb683ebbad6ec5aa3696c95a7              1.6s
- => [auth] sharing credentials for 291615555612.dkr.ecr.us-east-1.amazonaws.com                                                                                                          0.0s
- => pushing 291615555612.dkr.ecr.us-east-1.amazonaws.com/sigitp-ecr:ubuntu-netutils with docker                                                                                          0.7s
+ => => pushing manifest for 01234567890.dkr.ecr.us-east-1.amazonaws.com/sigitp-ecr:ubuntu-netutils@sha256:1273d7525ff77623e110aeaf82c810edb5f39babb683ebbad6ec5aa3696c95a7              1.6s
+ => [auth] sharing credentials for 01234567890.dkr.ecr.us-east-1.amazonaws.com                                                                                                          0.0s
+ => pushing 01234567890.dkr.ecr.us-east-1.amazonaws.com/sigitp-ecr:ubuntu-netutils with docker                                                                                          0.7s
  => => pushing layer 54146c695a3b                                                                                                                                                        0.6s
  => => pushing layer 3cd304903ebb                                                                                                                                                        0.6s
  => => pushing layer 4f4fb700ef54                                                                                                                                                        0.6s
