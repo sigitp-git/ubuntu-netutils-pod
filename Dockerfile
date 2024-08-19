@@ -6,7 +6,9 @@ FROM ubuntu:jammy
      iperf3 \
      iftop \
      ethtool \
-     netcat \
+ RUN apt autoremove
+ RUN apt-get update && \
+     apt-get install -y netcat \
      iputils-ping \
      wget \
      curl \
@@ -14,6 +16,7 @@ FROM ubuntu:jammy
      dnsutils \
      telnet \
      git
+ RUN apt autoremove
  RUN curl -s https://packagecloud.io/install/repositories/fdio/release/script.deb.sh | bash
  RUN apt-get update
  RUN apt-get install -y vpp vpp-plugin-core vpp-plugin-dpdk
