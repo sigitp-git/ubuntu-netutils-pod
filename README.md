@@ -90,6 +90,113 @@ Admin:~/environment/ubuntu-netutils-dockerfile $
 ### example pod definition
 https://github.com/sigitp-git/ubuntu-netutils-pod/blob/main/ubuntu-netutils-pod.yaml
 
+note: in this example, ens5 is eth0 and part of AWS VPC CNI, while ens6 uses ipvlan CNI
+ipvlan CNI Network Attachment Definition file is available here: 
+
+```
+Admin:~/environment $ kubectl describe po ubuntu-netutils
+Name:             ubuntu-netutils
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             ip-172-31-152-24.ec2.internal/172.31.152.24
+Start Time:       Mon, 19 Aug 2024 17:54:58 +0000
+Labels:           <none>
+Annotations:      k8s.v1.cni.cncf.io/network-status:
+                    [{
+                        "name": "aws-cni",
+                        "interface": "dummy4baa5304677",
+                        "ips": [
+                            "172.31.152.159"
+                        ],
+                        "mac": "0",
+                        "default": true,
+                        "dns": {}
+                    },{
+                        "name": "default/ipvlan-net-1",
+                        "interface": "net1",
+                        "ips": [
+                            "172.31.111.240"
+                        ],
+                        "mac": "0a:ff:ef:d8:17:47",
+                        "dns": {}
+                    }]
+                  k8s.v1.cni.cncf.io/networks: ipvlan-net-1
+Status:           Running
+IP:               172.31.152.159
+IPs:
+  IP:  172.31.152.159
+Containers:
+  ubuntu-netutils:
+    Container ID:  containerd://59aafb6e297dcc28e1ac411da2c4d486ba9f9bd288f31bd7b414b218e5e3428b
+    Image:         291615555612.dkr.ecr.us-east-1.amazonaws.com/sigitp-ecr:ubuntu-netutils
+    Image ID:      291615555612.dkr.ecr.us-east-1.amazonaws.com/sigitp-ecr@sha256:1273d7525ff77623e110aeaf82c810edb5f39babb683ebbad6ec5aa3696c95a7
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/bash
+      -c
+      --
+    Args:
+      while true; do sleep 300000; done;
+    State:          Running
+      Started:      Mon, 19 Aug 2024 17:55:27 +0000
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:                          1
+      hugepages-1Gi:                2Gi
+      intel.com/sriov_netdevice_1:  1
+      intel.com/sriov_netdevice_2:  1
+      memory:                       512Mi
+    Requests:
+      cpu:                          1
+      hugepages-1Gi:                2Gi
+      intel.com/sriov_netdevice_1:  1
+      intel.com/sriov_netdevice_2:  1
+      memory:                       512Mi
+    Environment:                    <none>
+    Mounts:
+      /mnt from nfs-pvc (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-tsslx (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  nfs-pvc:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  longhorn-pvc
+    ReadOnly:   false
+  kube-api-access-tsslx:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   Guaranteed
+Node-Selectors:              <none>
+Tolerations:                 intel.com/sriov_netdevice_1:NoSchedule op=Exists
+                             intel.com/sriov_netdevice_2:NoSchedule op=Exists
+                             node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason                  Age    From                     Message
+  ----    ------                  ----   ----                     -------
+  Normal  Scheduled               4m23s  default-scheduler        Successfully assigned default/ubuntu-netutils to ip-172-31-152-24.ec2.internal
+  Normal  SuccessfulAttachVolume  4m20s  attachdetach-controller  AttachVolume.Attach succeeded for volume "pvc-e8d87a93-ef2d-44a0-9b79-28481853ceb2"
+  Normal  AddedInterface          4m13s  multus                   Add eth0 [172.31.152.159/32] from aws-cni
+  Normal  AddedInterface          4m13s  multus                   Add net1 [172.31.111.240/20] from default/ipvlan-net-1
+  Normal  Pulling                 4m13s  kubelet                  Pulling image "291615555612.dkr.ecr.us-east-1.amazonaws.com/sigitp-ecr:ubuntu-netutils"
+  Normal  Pulled                  3m54s  kubelet                  Successfully pulled image "291615555612.dkr.ecr.us-east-1.amazonaws.com/sigitp-ecr:ubuntu-netutils" in 18.164s (18.164s including waiting)
+  Normal  Created                 3m54s  kubelet                  Created container ubuntu-netutils
+  Normal  Started                 3m54s  kubelet                  Started container ubuntu-netutils
+Admin:~/environment $ 
+```
+
 ### iperf3: create server and client pods
 ```
 Admin:~/environment $ kubectl apply -f iperf3-client-pod.yaml
