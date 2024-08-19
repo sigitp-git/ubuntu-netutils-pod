@@ -88,7 +88,7 @@ Admin:~/environment/ubuntu-netutils-dockerfile $
 ```
 
 ### example pod definition
-
+https://github.com/sigitp-git/ubuntu-netutils-pod/blob/main/ubuntu-netutils-pod.yaml
 
 ### iperf3: create server and client pods
 ```
