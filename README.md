@@ -87,6 +87,9 @@ Admin:~/environment/ubuntu-netutils-dockerfile $ sudo docker buildx build --plat
 Admin:~/environment/ubuntu-netutils-dockerfile $ 
 ```
 
+### example pod definition
+
+
 ### iperf3: create server and client pods
 ```
 Admin:~/environment $ kubectl apply -f iperf3-client-pod.yaml
@@ -330,3 +333,4 @@ Connecting to host 172.31.148.220, port 5201
 iperf Done.
 root@iperf3-pod2:/# 
 ```
+
