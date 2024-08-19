@@ -22,6 +22,9 @@ Packages included:
 ```
 aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 01234567890.dkr.ecr.us-east-1.amazonaws.com
 sudo docker buildx build --platform linux/amd64,linux/arm64 -t 01234567890.dkr.ecr.us-east-1.amazonaws.com/sigitp-ecr:ubuntu-netutils --push .
+
+[optional, pruning docker space]
+docker system prune --all --force --volumes
 ```
 
 example build output:
