@@ -6,7 +6,8 @@ FROM ubuntu:jammy
      iperf3 \
      iftop \
      ethtool \
- RUN apt autoremove
+     && apt-get clean \
+     && rm -rf /var/lib/apt/lists/*
  RUN apt-get update && \
      apt-get install -y netcat \
      iputils-ping \
@@ -16,6 +17,8 @@ FROM ubuntu:jammy
      dnsutils \
      telnet \
      git
+     && apt-get clean \
+     && rm -rf /var/lib/apt/lists/*
  RUN apt autoremove
  RUN curl -s https://packagecloud.io/install/repositories/fdio/release/script.deb.sh | bash
  RUN apt-get update
