@@ -30,3 +30,10 @@ spec:
         intel.com/sriov_netdevice_1: '1'
         intel.com/sriov_netdevice_2: '1'
         intel.com/sriov_netdevice_3: '1'
+    volumeMounts:
+      - name: nfs-pvc
+        mountPath: "/mnt"
+  volumes:
+    - name: nfs-pvc
+      persistentVolumeClaim:
+        claimName: longhorn-pvc2
